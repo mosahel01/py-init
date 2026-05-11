@@ -44,13 +44,15 @@ your-project/
 
 ---
 
-### License
-
-MIT — see [LICENSE](LICENSE).
-
 ### Requirements
 
 - Python 3.8+
 - Compatible with Windows, macOS, and Linux.
+
+---
+
+### License
+
+MIT — see [LICENSE](LICENSE).
 
 Feedback is welcome — feel free to open a PR if you have ideas for improvements!
