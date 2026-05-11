@@ -25,7 +25,7 @@ python py-init.py
 
 ---
 
-### 📂 Structure Created
+### 📂 Structure 
 ```bash
 your-project/
 ├── venv/              # isolated virtual environment
