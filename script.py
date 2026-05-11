@@ -29,7 +29,10 @@ def create_project():
     project_path.mkdir(parents=True)
     print(f"created project folder: {project_path}")
 
-    # write pyproject.toml 
+    # detect python version for requires-python
+    py_ver = f"{sys.version_info.major}.{sys.version_info.minor}"
+
+    # write pyproject.toml
     pyproject_content = f"""[build-system]
 requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
@@ -39,8 +42,11 @@ name = "{project_name}"
 version = "0.1.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">={py_ver}"
 dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
 """
     (project_path / "pyproject.toml").write_text(pyproject_content)
 
@@ -57,6 +63,17 @@ dist/
 .ruff_cache/
 """
     (project_path / ".gitignore").write_text(gitignore_content)
+
+    # write .pre-commit-config.yaml
+    precommit_content = """repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+"""
+    (project_path / ".pre-commit-config.yaml").write_text(precommit_content)
 
     # create <src>/<project_name>/<package> 
     src_pkg = project_path / "src" / project_name
