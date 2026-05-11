@@ -15,9 +15,26 @@ A lightweight automation script to bootstrap modern Python projects. It handles 
 
 ### 🚀 Usage
 
-1.  **Placement**: Keep `py-init.py` in your path or a dedicated scripts folder.
-2.  **(Optional)**: Place a `requirements.txt` next to the script containing your "default" libraries (e.g., `requests`, `pytest`).
-3.  **Run**:
-    ```bash
-    python py-init.py
-    ```
+1. **Placement**: Keep `py-init.py` in your path or a dedicated scripts folder.
+2. **(Optional)**: Place a `requirements.txt` next to the script containing your "default" libraries (e.g., `requests`, `pytest`).
+3. **Run**:
+```bash
+python py-init.py
+```
+4. **Follow Prompt**: Enter your project name.
+
+---
+
+### 📂 Structure Created
+```bash
+your-project/
+├── venv/              # isolated virtual environment
+├── pyproject.toml     # modern project metadata
+└── (requirements.txt) # optional: seeded from script source
+```
+
+### 🛠️ Requirements
+* Python 3.6+
+* Compatible with Windows, macOS, and Linux.
+
+
