@@ -5,7 +5,7 @@ from pathlib import Path
 
 # this script creates a project folder with:
 # - pyproject.toml (modern PEP 621 metadata)
-# - src/<project_name>/ pkg directoryy
+# - src/<project_name>/ package directory
 # - a virtual environment with seed dependencies installed
 # - a requirements.txt snapshot
 # - tests/ directory
@@ -14,7 +14,7 @@ from pathlib import Path
 def create_project():
     current_dir = Path.cwd()
 
-    project_name = input('Enter name for this project > ').strip().lower()
+    project_name = input('Enter name for this project > ').strip()
     if not project_name:
         print("Project name cannot be empty.")
         return
@@ -84,11 +84,17 @@ dist/
     tests_dir = project_path / "tests"
     tests_dir.mkdir()
     (tests_dir / "__init__.py").write_text("")
-    test_content = f'''from {project_name} import __version__
+    test_content = f'''import unittest
+from {project_name} import __version__
 
 
-def test_version():
-    assert __version__ == "0.1.0"
+class TestVersion(unittest.TestCase):
+    def test_version(self):
+        self.assertEqual(__version__, "0.1.0")
+
+
+if __name__ == "__main__":
+    unittest.main()
 '''
     (tests_dir / f"test_{project_name}.py").write_text(test_content)
 
@@ -113,9 +119,9 @@ def test_version():
             subprocess.run([str(python_exe), "-m", "pip", "install", "-r", str(seed_reqs)], check=True)
 
         sys.stdout.flush()
-        print("Installing project in editable mode...")
+        print("Installing project with dev dependencies...")
         sys.stdout.flush()
-        subprocess.run([str(python_exe), "-m", "pip", "install", "-e", str(project_path)], check=True)
+        subprocess.run([str(python_exe), "-m", "pip", "install", "-e", f"{project_path}[dev]"], check=True)
 
         sys.stdout.flush()
         print("Generating requirements.txt snapshot...")
